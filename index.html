@@ -139,23 +139,55 @@
 
   <script src="js/main.js"></script>
  <!-- Contact Modal -->
-<div id="contactModal" class="contact-modal" style="display:none;">
+<div id="globalModal" class="contact-modal" style="display:none;">
   <div class="contact-modal-content">
-    <span id="contactClose" class="contact-close">&times;</span>
+    <span id="globalModalClose" class="contact-close">&times;</span>
     <h2>Contact / Donate</h2>
-    <p>Please fill out the form below to support a child.</p>
-    <form id="contactFormModal">
-      <label>Name:<input type="text" name="name" required></label>
-      <label>Phone Number:<input type="tel" name="phone"></label>
-      <label>Email:<input type="email" name="email" required></label>
-      <label>Reason:<textarea name="reason" required></textarea></label>
+    <form id="globalModalForm" action="https://formspree.io/f/movklbol" method="POST">
+      <label for="gm-name">Name*</label>
+      <input type="text" name="name" id="gm-name" required>
+
+      <label for="gm-phone">Phone</label>
+      <input type="tel" name="phone" id="gm-phone">
+
+      <label for="gm-email">Email*</label>
+      <input type="email" name="email" id="gm-email" required>
+
+      <label for="gm-message">Message*</label>
+      <textarea name="message" id="gm-message" rows="4" required></textarea>
+
       <button type="submit" class="donate-btn">Submit</button>
-      <p id="contactStatus"></p>
+      <p id="globalModalStatus"></p>
     </form>
   </div>
 </div>
+
+<div id="kidModal" class="contact-modal" style="display:none;">
+  <div class="contact-modal-content">
+    <span id="kidModalClose" class="contact-close">&times;</span>
+    <h2>Donate to a Child</h2>
+    <form id="kidModalForm" action="https://formspree.io/f/movklbol" method="POST">
+      <label for="kid-name">Your Name*</label>
+      <input type="text" name="name" id="kid-name" required>
+
+      <label for="kid-phone">Phone</label>
+      <input type="tel" name="phone" id="kid-phone">
+
+      <label for="kid-email">Email*</label>
+      <input type="email" name="email" id="kid-email" required>
+
+      <label for="kid-message">Message*</label>
+      <textarea name="message" id="kid-message" rows="4" required></textarea>
+
+      <button type="submit" class="donate-btn">Submit</button>
+      <p id="kidModalStatus"></p>
+    </form>
+  </div>
+</div>
+	
 </body>
 </html>
+
 
 
 
