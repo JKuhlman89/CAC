@@ -1,11 +1,11 @@
 'use strict';
 
 /*
-  main.js - Drop-in replacement that works with the original index.html you provided.
+  main.js - Drop-in replacement that works with your original index.html (as provided)
   - Loads kids from SHEET_URL and populates #kidsGrid
-  - Collapses grid initially and toggles with existing Show All button(s)
+  - Collapses grid initially and toggles with existing Show All button
   - Uses the existing #contactModal and #contactFormModal as the single modal
-    for both generic contact/donate and kid-specific donations (prefills message)
+    for both generic contact/donate and kid-specific donations (prefills reason)
   - Submits forms to Formspree (https://formspree.io/f/movklbol)
 */
 
@@ -14,7 +14,7 @@ const FORMSPREE_URL = 'https://formspree.io/f/movklbol';
 
 // DOM refs (based on your original index.html)
 const kidsGrid = document.getElementById('kidsGrid');
-const toggleBtns = document.querySelectorAll('#toggleKids'); // covers duplicate IDs
+const toggleBtns = document.querySelectorAll('#toggleKids'); // supports duplicate IDs if exist
 const contactModal = document.getElementById('contactModal'); // your existing modal
 const contactClose = document.getElementById('contactClose'); // existing close button
 const contactFormModal = document.getElementById('contactFormModal'); // modal form
@@ -58,21 +58,27 @@ function setupToggleButtons() {
   });
 }
 
-// Open the contact modal (generic)
+// Open the contact modal (generic) with optional prefill
 function openContactModal(prefill = {}) {
   if (!contactModal || !contactFormModal) return;
   // prefill fields if provided
-  if (prefill.name !== undefined && contactFormModal.name) contactFormModal.name.value = prefill.name;
-  if (prefill.phone !== undefined && contactFormModal.phone) contactFormModal.phone.value = prefill.phone;
-  if (prefill.email !== undefined && contactFormModal.email) contactFormModal.email.value = prefill.email;
-  if (prefill.reason !== undefined && contactFormModal.reason) contactFormModal.reason.value = prefill.reason;
+  try {
+    if (prefill.name !== undefined && contactFormModal.name) contactFormModal.name.value = prefill.name;
+    if (prefill.phone !== undefined && contactFormModal.phone) contactFormModal.phone.value = prefill.phone;
+    if (prefill.email !== undefined && contactFormModal.email) contactFormModal.email.value = prefill.email;
+    if (prefill.reason !== undefined && contactFormModal.reason) contactFormModal.reason.value = prefill.reason;
+  } catch(err) {
+    // ignore
+  }
 
   contactStatus.textContent = '';
   contactModal.style.display = 'flex';
 
   // focus first input inside modal
   const firstInput = contactFormModal.querySelector('input, textarea');
-  if (firstInput) firstInput.focus();
+  if (firstInput) {
+    setTimeout(() => firstInput.focus(), 80);
+  }
 }
 
 // Close contact modal
@@ -89,7 +95,6 @@ async function submitToFormspree(data) {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(data)
     });
-    // Formspree often returns 200 with JSON; treat ok as success
     if (res.ok) {
       try {
         const json = await res.json();
@@ -112,22 +117,21 @@ function setupModalForm() {
   if (!contactFormModal) return;
   contactFormModal.addEventListener('submit', async (e) => {
     e.preventDefault();
-    contactStatus.textContent = 'Submitting...';
+    if (contactStatus) contactStatus.textContent = 'Submitting...';
 
     // gather data
     const formData = new FormData(contactFormModal);
-    // convert to object
     const data = {};
     formData.forEach((v,k) => data[k] = v.trim());
 
     const result = await submitToFormspree(data);
     if (result.ok) {
-      contactStatus.textContent = 'Thank you — submission received.';
+      if (contactStatus) contactStatus.textContent = 'Thank you — submission received.';
       contactFormModal.reset();
       setTimeout(closeContactModal, 1400);
     } else {
       console.error('Formspree error', result.error);
-      contactStatus.textContent = 'Submission failed. Please try again later.';
+      if (contactStatus) contactStatus.textContent = 'Submission failed. Please try again later.';
     }
   });
 }
@@ -188,18 +192,14 @@ async function loadKids() {
       const fields = ['Initials','Interests','Age','Needs','Wishes','Notes'];
       card.innerHTML = fields.map(f => `<p><strong>${f}:</strong> ${escapeHtml(k[f] || '—')}</p>`).join('');
 
-      // Add a donate button inside the card (same class as other donate buttons).
-      // When clicked, we detect it's inside a .kid-card and prefills the modal accordingly.
+      // Add a donate button inside the card
       const btnWrapper = document.createElement('div');
       btnWrapper.className = 'button-wrapper';
 
       const donateEl = document.createElement('a');
       donateEl.href = '#';
-      donateEl.className = 'donate-btn'; // matches your site style
+      donateEl.className = 'donate-btn';
       donateEl.textContent = 'Donate';
-
-      // we'll rely on delegated click handling to detect donation clicks and
-      // pick the nearest .kid-card to build a message.
 
       btnWrapper.appendChild(donateEl);
       card.appendChild(btnWrapper);
@@ -226,8 +226,7 @@ function setupGlobalClickHandlers() {
       const parentCard = donateTarget.closest('.kid-card');
       if (parentCard) {
         e.preventDefault();
-        // Pull child data from the card for a helpful prefill
-        // We'll try to fetch the "Initials" and "Wishes" lines
+        // Pull child data from the card for a prefill
         const paragraphs = Array.from(parentCard.querySelectorAll('p'));
         const initialsP = paragraphs.find(p => p.textContent.startsWith('Initials:'));
         const wishesP = paragraphs.find(p => p.textContent.startsWith('Wishes:') || p.textContent.includes('Wishes:'));
@@ -242,24 +241,24 @@ function setupGlobalClickHandlers() {
       // If donate button is not in a kid card, fall through and handle below (generic donate)
     }
 
-    // Nav Donate button(s) or hero Donate: detect nav link with href "#donate" or nav donate class
-    const navDonate = e.target.closest('.nav-donate, a.nav-link[href="#donate"], a.nav-link[href="#donate"] *');
+    // Nav Donate button(s) or hero Donate: detect .nav-donate
+    const navDonate = e.target.closest('.nav-donate');
     if (navDonate) {
       e.preventDefault();
       openContactModal();
       return;
     }
 
-    // Nav Contact links or any explicit contact buttons that link to #contact (top/bottom)
-    const navContact = e.target.closest('a.nav-link[href="#contact"], .open-contact, .contact-btn');
+    // Nav Contact links or any explicit contact buttons
+    const navContact = e.target.closest('.open-contact, a.nav-link[href="#contact"]');
     if (navContact) {
       e.preventDefault();
       openContactModal();
       return;
     }
 
-    // If click was on the modal close '×' (your original contactClose id)
-    if (e.target === contactClose || e.target.closest && e.target.closest('#contactClose')) {
+    // If click was the modal close '×'
+    if (e.target === contactClose || (e.target.closest && e.target.closest('#contactClose'))) {
       e.preventDefault();
       closeContactModal();
       return;
@@ -281,7 +280,6 @@ function setupModalCloseHandlers() {
 
 // Initialize everything
 function init() {
-  // Keep original html intact — only touch styles and scripts
   if (!kidsGrid) {
     console.error('Missing #kidsGrid element in HTML — script cannot continue.');
     return;
@@ -295,7 +293,5 @@ function init() {
   loadKids();
 }
 
-// Start
-document.addEventListener('DOMContentLoaded', () => {
-  init();
-});
+// Start on DOM ready
+document.addEventListener('DOMContentLoaded', init);
