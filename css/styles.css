@@ -274,7 +274,7 @@ body{
 
 .contact-form label { display:block; font-weight:600; margin-bottom:6px; }
 .contact-form input, .contact-form textarea { width:100%; padding:10px 12px; margin-bottom:12px; border-radius:6px; border:1px solid #ccc; font-family:var(--font-sans); font-size:14px; }
-.contact-form button { display:inline-block; padding:12px 24px; background:var(--color-primary); color:#fff; border-radius:8px; font-weight:700; border:none; cursor:pointer; transition:background 0.2s ease-in-out; }
+.contact-form button { display:inline-block; padding:12px 24px; background:var(--color-primary); color:#fff; border-radius:8px; font-weight:700; border:none; cursor:pointer; transition: background 0.2s ease-in-out; }
 .contact-form button:hover { background:#a11414; }
 
 /* Footer */
@@ -326,4 +326,3 @@ body{
 .contact-modal input, .contact-modal textarea { width:100%; padding:8px 10px; margin-top:4px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box; }
 .contact-modal .donate-btn { background: var(--color-primary); color:#fff; padding:10px 16px; border-radius:6px; border:none; cursor:pointer; font-weight:700; }
 .contact-modal .donate-btn:hover { background:#a11414; }
-
