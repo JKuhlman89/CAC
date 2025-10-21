@@ -136,22 +136,23 @@
 
   <script src="js/main.js"></script>
 
- <!-- Contact Modal -->
-<div id="contactModal" class="contact-modal" aria-hidden="true" style="display:none;">
-  <div class="contact-modal-content" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
-    <button id="contactClose" class="contact-close" aria-label="Close modal">&times;</button>
-    <h2 id="contactModalTitle">Contact / Donate</h2>
-    <p>Please fill out the form below to support a child.</p>
+<!-- Contact Modal -->
+<div id="contactModal" class="contact-modal" style="display:none;">
+  <div class="contact-modal-content">
+    <span id="contactClose" class="contact-close">&times;</span>
+    <h2 id="modalTitle">Contact / Donate</h2>
+    <p id="modalSubtitle">Please fill out the form below to support a child.</p>
     <form id="contactFormModal">
       <label>Name:<input type="text" name="name" required></label>
       <label>Phone Number:<input type="tel" name="phone"></label>
       <label>Email:<input type="email" name="email" required></label>
-      <label>Reason:<textarea name="reason" required></textarea></label>
+      <label id="reasonLabel">Message:<textarea name="reason" required></textarea></label>
       <button type="submit" class="donate-btn">Submit</button>
-      <p id="contactStatus" aria-live="polite"></p>
+      <p id="contactStatus"></p>
     </form>
   </div>
 </div>
 
 </body>
 </html>
+
