@@ -2,11 +2,10 @@
 
 /*
   main.js
-  - Loads kids from SHEET_URL (your existing Google Apps script URL)
-  - Populates #kidsGrid with cards
-  - Keeps initial collapsed grid (first row visible)
+  - Populates kids from SHEET_URL
+  - Keeps initial collapsed grid
   - Toggles with single Show All button (#toggleKids)
-  - Opens contact modal (#contactModal) for all Donate/Contact triggers
+  - Opens the contact modal for all Donate/Contact triggers
   - Prefills modal reason with kid info when opened from a kid card
   - Submits modal form and bottom contact form to Formspree
 */
@@ -28,7 +27,16 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  // --- Toggle show all ---
+  // helper
+  function escapeHtml(s) {
+    return String(s === undefined || s === null ? '' : s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  // Toggle button
   function updateToggleText() {
     if (!toggleBtn) return;
     const collapsed = kidsGrid.classList.contains('collapsed');
@@ -42,16 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- Escape HTML helper ---
-  function escapeHtml(s) {
-    return String(s === undefined || s === null ? '' : s)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
-  }
-
-  // --- Load kids from SHEET_URL ---
+  // Load kids data
   async function loadKids() {
     kidsGrid.innerHTML = '<p>Loading...</p>';
     try {
@@ -59,7 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!res.ok) throw new Error('Network error: ' + res.status);
       const data = await res.json();
 
-      // data might be array or object with kids property
       const kids = Array.isArray(data) ? data : (data.kids || []);
       const visible = kids.filter(k => !k.status || String(k.status).toLowerCase() === 'active');
 
@@ -73,47 +71,39 @@ document.addEventListener('DOMContentLoaded', () => {
         const card = document.createElement('div');
         card.className = 'kid-card';
 
-        // Build card content using the fields you expect
         const fields = ['Initials','Interests','Age','Needs','Wishes','Notes'];
         const inner = fields.map(f => {
           const val = escapeHtml(k[f] || '—');
           return `<p><strong>${escapeHtml(f)}:</strong> ${val}</p>`;
         }).join('');
 
-        // Append donate button (we will handle clicks via delegation)
         card.innerHTML = inner + `<div class="button-wrapper"><button class="donate-btn" type="button">Donate</button></div>`;
-
         kidsGrid.appendChild(card);
       });
 
-      // Ensure initial collapsed state and toggle text
+      // ensure collapsed initial state
       if (!kidsGrid.classList.contains('collapsed')) kidsGrid.classList.add('collapsed');
       updateToggleText();
-
     } catch (err) {
       console.error(err);
       kidsGrid.innerHTML = '<p>Could not load the kids list.</p>';
     }
   }
 
-  // --- Open contact modal; optional prefill object { name, wishlist, reason } ---
+  // Open/close modal
   function openContactModal(prefill = {}) {
     if (!contactModal || !contactFormModal) return;
-    // reset status
     if (contactStatus) contactStatus.textContent = '';
 
-    // prefill fields if present (don't overwrite if undefined)
     try {
       if (prefill.name !== undefined && contactFormModal.name) contactFormModal.name.value = prefill.name;
       if (prefill.phone !== undefined && contactFormModal.phone) contactFormModal.phone.value = prefill.phone;
       if (prefill.email !== undefined && contactFormModal.email) contactFormModal.email.value = prefill.email;
       if (prefill.reason !== undefined && contactFormModal.reason) contactFormModal.reason.value = prefill.reason;
-    } catch (e) {
-      // ignore
-    }
+    } catch (e) {}
 
     contactModal.classList.add('show');
-    // focus first input
+    contactModal.setAttribute('aria-hidden', 'false');
     const first = contactFormModal.querySelector('input, textarea');
     if (first) setTimeout(() => first.focus(), 60);
   }
@@ -121,16 +111,16 @@ document.addEventListener('DOMContentLoaded', () => {
   function closeContactModal() {
     if (!contactModal) return;
     contactModal.classList.remove('show');
+    contactModal.setAttribute('aria-hidden', 'true');
   }
 
-  // --- Delegated click handling for Donate / Contact triggers ---
+  // Delegated clicks
   document.body.addEventListener('click', (e) => {
-    // 1) If a kid-card donate button was clicked
-    const donateBtn = e.target.closest('.kid-card .donate-btn, .kid-card button.donate-btn');
-    if (donateBtn) {
+    // kid-card donate
+    const kidDonate = e.target.closest('.kid-card .donate-btn, .kid-card button.donate-btn');
+    if (kidDonate) {
       e.preventDefault();
-      const card = donateBtn.closest('.kid-card');
-      // Extract useful info: Initials and Wishes if present
+      const card = kidDonate.closest('.kid-card');
       const paragraphs = Array.from(card.querySelectorAll('p'));
       const initialsP = paragraphs.find(p => p.textContent.trim().startsWith('Initials:'));
       const wishesP = paragraphs.find(p => p.textContent.trim().startsWith('Wishes:'));
@@ -141,15 +131,15 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // 2) If hero/nav donate or donate-nav clicked
-    const navDonate = e.target.closest('.donate-nav, a.nav-link[href="#donate"], a.nav-link:contains("Donate")');
+    // nav/hero donate
+    const navDonate = e.target.closest('.donate-nav, a.nav-link[href="#donate"]');
     if (navDonate) {
       e.preventDefault();
       openContactModal();
       return;
     }
 
-    // 3) If contact nav clicked (open modal)
+    // nav contact
     const navContact = e.target.closest('.contact-nav, a.nav-link[href="#contact"]');
     if (navContact) {
       e.preventDefault();
@@ -157,33 +147,31 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // 4) Close button inside modal
-    if (e.target === contactClose || e.target.closest && e.target.closest('#contactClose')) {
+    // close button
+    if (e.target === contactClose || (e.target.closest && e.target.closest('#contactClose'))) {
       e.preventDefault();
       closeContactModal();
       return;
     }
   });
 
-  // Close modal when clicking outside content
+  // close on outside click
   if (contactModal) {
     contactModal.addEventListener('click', (e) => {
       if (e.target === contactModal) closeContactModal();
     });
   }
-
-  // Close on Escape
+  // close on escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeContactModal();
   });
 
-  // --- Submit modal form to Formspree ---
+  // submit modal form to Formspree
   if (contactFormModal) {
     contactFormModal.addEventListener('submit', async (e) => {
       e.preventDefault();
       if (contactStatus) contactStatus.textContent = 'Submitting...';
 
-      // Using FormData (Formspree accepts formdata and will respond with JSON if Accept: application/json)
       const fd = new FormData(contactFormModal);
 
       try {
@@ -195,11 +183,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (res.ok) {
           if (contactStatus) contactStatus.textContent = 'Thank you! Submission received.';
           contactFormModal.reset();
-          setTimeout(() => closeContactModal(), 1400);
+          setTimeout(() => closeContactModal(), 1200);
         } else {
-          let json;
-          try { json = await res.json(); } catch(_) { json = null; }
-          console.error('Formspree error', json);
+          console.error('Formspree response not ok');
           if (contactStatus) contactStatus.textContent = 'Submission failed. Please try again later.';
         }
       } catch (err) {
@@ -209,11 +195,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- Bottom contact form submits to Formspree (without modal) ---
+  // bottom form submit to Formspree
   if (bottomContactForm) {
     bottomContactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      // add inline status element if not present
       let statusEl = bottomContactForm.querySelector('.bottom-form-status');
       if (!statusEl) {
         statusEl = document.createElement('p');
@@ -221,7 +206,6 @@ document.addEventListener('DOMContentLoaded', () => {
         bottomContactForm.appendChild(statusEl);
       }
       statusEl.textContent = 'Submitting...';
-
       try {
         const fd = new FormData(bottomContactForm);
         const res = await fetch(FORMSPREE_URL, {
@@ -242,6 +226,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- Initialize: load kids ---
+  // initial load
   loadKids();
 });
