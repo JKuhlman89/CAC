@@ -3,7 +3,7 @@
 @media (max-width: 768px) {
   .kid-card {
     flex: 0 0 90%;
-    max-width: 320px;
+    max-width: 320px;           
     margin: 0 auto;
   }
 }
@@ -274,7 +274,7 @@ body{
 
 .contact-form label { display:block; font-weight:600; margin-bottom:6px; }
 .contact-form input, .contact-form textarea { width:100%; padding:10px 12px; margin-bottom:12px; border-radius:6px; border:1px solid #ccc; font-family:var(--font-sans); font-size:14px; }
-.contact-form button { display:inline-block; padding:12px 24px; background:var(--color-primary); color:#fff; border-radius:8px; font-weight:700; border:none; cursor:pointer; transition: background 0.2s ease-in-out; }
+.contact-form button { display:inline-block; padding:12px 24px; background:var(--color-primary); color:#fff; border-radius:8px; font-weight:700; border:none; cursor:pointer; transition:background 0.2s ease-in-out; }
 .contact-form button:hover { background:#a11414; }
 
 /* Footer */
