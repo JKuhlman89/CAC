@@ -15,7 +15,7 @@
       <nav class="nav">
         <a href="#about" class="nav-link">About</a>
         <a href="#kids" class="nav-link">Kids in Need</a>
-        <a href="#donate" class="nav-link donate-nav">Donate</a>
+        <a href="#" class="nav-link nav-donate">Donate</a>
         <a href="#contact" class="nav-link contact-nav">Contact</a>
       </nav>
     </div>
@@ -26,7 +26,7 @@
       <div class="hero-overlay">
         <h1>Bringing Holiday Joy to Those in Need</h1>
         <p class="lead">An ongoing tradition of love, support, giving, and community</p>
-        <a href="#donate" class="btn donate-btn donate-nav">Donate Now</a>
+        <a href="#" class="btn donate-btn nav-donate">Donate Now</a>
       </div>
     </section>
 
@@ -34,43 +34,16 @@
       <div class="section-header">
         <h2>About Us</h2>
       </div>
-
       <div class="about-content">
-        <!-- Laurel Column -->
-        <div class="about-box">
-          <h3 class="sub-header">Background</h3>
-          <p>
-            Since 2010 our founder, Laurel McLanahan, has worked diligently every holiday season to bring gifts of clothing, toys, money, and more to people in need. What started off as a friendly, kind-hearted gesture quickly grew into a small organization of friends and family. Each year, Laurel has gathered her small crew to help those in need get through the holiday season. Our goal is to provide a relief to those in need during stressful times so that they can focus on current hardships. As of 2025, over three dozen families have been supported through their holiday season with gifts of clothing, food, money, and more!
-          </p>
-
-          <div class="about-image">
-            <img src="assets/images/momdad.png" alt="Laurel">
-            <p class="caption">Laurel McLanahan and her top supporter: her husband, Jim.</p>
-          </div>
-        </div>
-
-        <!-- Carl Column -->
-        <div class="about-box">
-          <h3 class="sub-header">About Carl</h3>
-          <p>
-            Known throughout his community for his kind heart and loving generosity, Carl Swanson II was a large part of Laurel’s annual operations, especially in later years. Prior to his passing in 2025, Carl spent years working side-by-side with Laurel as they spent countless hours gathering donations, hearing peoples’ stories, and helping out everywhere they could. Operating as a nameless collection of helpful people, it was in Carl’s passing that the organization finally had a name.... because even though his physical form has left us, any holiday filled with love, generosity, giving, and caring will always feel like Christmas At Carl’s.
-          </p>
-
-          <div class="about-image">
-            <img src="assets/images/carl.png" alt="Carl">
-            <p class="caption">Carl Swanson II; Forever Remembered</p>
-          </div>
-        </div>
+        <!-- Your about columns here -->
       </div>
     </section>
 
     <section id="kids">
       <div class="section-header">Kids In Need</div>
-
       <div class="kids-grid collapsed container" id="kidsGrid">
         <!-- Cards will populate here via JavaScript -->
       </div>
-
       <div class="see-all-container">
         <button id="toggleKids" class="see-all-btn">Show All</button>
       </div>
@@ -78,81 +51,59 @@
 
     <section id="get-involved">
       <div class="section-header">Get Involved</div>
-
       <div class="get-involved-content container">
-        <div class="top-row">
-          <div class="info-box">
-            <h3 class="sub-header">What We Need</h3>
-            <p>It’s simple; we need you! Kind-hearted, generous people who understand what it’s like to be down on your luck. The reality is that we are all one unfortunate moment away from our lives changing forever, and it can happen to anyone. Our team has a list of the children and families that we are working with this year, along with the things they need and want. Don’t let that restrict you! Anything we have in excess will be happily given to others who have reached out to us, and our reach will grow alongside our donations and capabilities!</p>
-          </div>
-          <div class="info-box">
-            <h3 class="sub-header">How To Help</h3>
-            <p>Whether you’re able to make a physical donation, volunteer your time, or both, fill out the contact form below! We will get a hold of you as soon as possible.</p>
-          </div>
-        </div>
+        <!-- Your Get Involved content here -->
+        <div class="contact-form-wrapper">
+          <form class="contact-form" id="bottomContactForm">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
 
-        <div class="bottom-row">
-          <div class="info-box bottom-left">
-            <h3 class="sub-header">Contact Us!</h3>
-            <p>We do our best to respond to each and every inquiry. If you want to donate your time, have donations to pass along, or need some help yourself this holiday season don’t be afraid to reach out! While we can’t help everybody, our goal is to help those in need get back on their feet and able to move forward.</p>
-            <br>
-            <p>Reach out today; a member of our staff will get in touch with you as soon as possible!</p>
-          </div>
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" placeholder="Your Phone">
 
-          <div class="contact-form-wrapper">
-            <form class="contact-form" id="bottomContactForm">
-              <label for="name">Name</label>
-              <input type="text" id="name" name="name" placeholder="Your Name" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
 
-              <label for="phone">Phone</label>
-              <input type="tel" id="phone" name="phone" placeholder="Your Phone">
+            <label for="comments">Comments</label>
+            <textarea id="comments" name="comments" placeholder="Your message..." rows="4"></textarea>
 
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" placeholder="Your Email" required>
-
-              <label for="comments">Comments</label>
-              <textarea id="comments" name="comments" placeholder="Your message..." rows="4"></textarea>
-
-              <button type="submit" class="btn primary">Submit</button>
-            </form>
-          </div>
+            <button type="submit" class="btn primary">Submit</button>
+            <p id="bottomContactStatus"></p>
+          </form>
         </div>
       </div>
     </section>
-
   </main>
 
- <footer class="site-footer">
-  <div class="container footer-inner">
-    <img src="assets/icons/Flat-Logo-Red.svg" alt="Christmas at Carl's logo" class="logo" />
-    <nav class="nav">
-      <a href="#about" class="nav-link">About</a>
-      <a href="#kids" class="nav-link">Kids in Need</a>
-      <a href="#donate" class="nav-link donate-nav">Donate</a>
-      <a href="#contact" class="nav-link contact-nav">Contact</a>
-    </nav>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <img src="assets/icons/Flat-Logo-Red.svg" alt="Christmas at Carl's logo" class="logo" />
+      <nav class="nav">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#kids" class="nav-link">Kids in Need</a>
+        <a href="#" class="nav-link nav-donate">Donate</a>
+        <a href="#contact" class="nav-link contact-nav">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Contact / Donate Modal -->
+  <div id="contactModal" class="contact-modal">
+    <div class="contact-modal-content">
+      <span id="contactClose" class="contact-close">&times;</span>
+      <h2 id="modalTitle">Contact / Donate</h2>
+      <p id="modalSubtitle">Please fill out the form below to support a child.</p>
+      <form id="contactFormModal">
+        <label>Name:<input type="text" name="name" required></label>
+        <label>Phone Number:<input type="tel" name="phone"></label>
+        <label>Email:<input type="email" name="email" required></label>
+        <label id="reasonLabel">Message:<textarea name="reason" required></textarea></label>
+        <button type="submit" class="donate-btn">Submit</button>
+        <p id="contactStatus"></p>
+      </form>
+    </div>
   </div>
-</footer>
 
   <script src="js/main.js"></script>
-
-<!-- Contact Modal -->
-<div id="contactModal" class="contact-modal" style="display:none;">
-  <div class="contact-modal-content">
-    <span id="contactClose" class="contact-close">&times;</span>
-    <h2 id="modalTitle">Contact / Donate</h2>
-    <p id="modalSubtitle">Please fill out the form below to support a child.</p>
-    <form id="contactFormModal">
-      <label>Name:<input type="text" name="name" required></label>
-      <label>Phone Number:<input type="tel" name="phone"></label>
-      <label>Email:<input type="email" name="email" required></label>
-      <label id="reasonLabel">Message:<textarea name="reason" required></textarea></label>
-      <button type="submit" class="donate-btn">Submit</button>
-      <p id="contactStatus"></p>
-    </form>
-  </div>
-</div>
-
 </body>
 </html>
-
