@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Setup modal open/close
   setupModal();
 
-  // Smooth scroll for nav links
-  document.querySelectorAll('.nav-link').forEach(link => {
+  // Smooth scroll for nav links (exclude modal buttons)
+  document.querySelectorAll('.nav-link:not(.nav-donate)').forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
       const targetID = link.getAttribute('href').substring(1);
@@ -45,11 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Bottom contact form submission
   const contactForm = document.querySelector('.contact-form');
+  const bottomStatus = document.getElementById('bottomContactStatus');
   if(contactForm){
     contactForm.addEventListener('submit', async e=>{
       e.preventDefault();
       const formData = new FormData(contactForm);
-      status.textContent = 'Submitting...';
+      bottomStatus.textContent = 'Submitting...';
       try{
         const res = await fetch(FORMSPREE_URL, {
           method:'POST',
@@ -58,14 +59,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         const json = await res.json();
         if(res.ok){
-          status.textContent = 'Thank you! Submission received.';
+          bottomStatus.textContent = 'Thank you! Submission received.';
           contactForm.reset();
         } else {
-          status.textContent = 'Submission failed: '+(json?.errors?.[0]?.message||'Unknown error');
+          bottomStatus.textContent = 'Submission failed: '+(json?.errors?.[0]?.message||'Unknown error');
         }
       }catch(err){
         console.error(err);
-        status.textContent = 'An error occurred. Please try again later.';
+        bottomStatus.textContent = 'An error occurred. Please try again later.';
       }
     });
   }
@@ -91,7 +92,7 @@ async function loadKids() {
       const fields = ['Initials','Interests','Age','Needs','Wishes','Notes'];
       card.innerHTML = fields.map(f => `<p><strong>${f}:</strong> ${escapeHtml(k[f]||'—')}</p>`).join('');
       card.innerHTML += `<div class="button-wrapper">
-        <a href="#" class="donate-btn open-contact" data-kid="${escapeHtml(k.Initials)}" data-wishlist="${escapeHtml(k.Wishes||'')}">Donate</a>
+        <button class="donate-btn open-contact" data-kid="${escapeHtml(k.Initials)}" data-wishlist="${escapeHtml(k.Wishes||'')}">Donate</button>
       </div>`;
       kidsGrid.appendChild(card);
     });
@@ -112,13 +113,13 @@ function escapeHtml(s) {
 
 // --- Modal setup ---
 function setupModal() {
-  // Open modal for all .open-contact buttons
+  // Open modal for .open-contact and nav-donate buttons
   document.body.addEventListener('click', e => {
-    if(e.target.matches('.open-contact, .donate-btn, .nav-donate')){
+    if(e.target.matches('.open-contact, .nav-donate')){
       e.preventDefault();
-      // Populate modal if kid data exists
       const kidName = e.target.dataset.kid;
       const wishlist = e.target.dataset.wishlist;
+
       if(kidName){
         modalTitle.textContent = `Donate for ${kidName}`;
         modalSubtitle.textContent = `Wishlist: ${wishlist || 'No wishlist provided.'}`;
@@ -128,19 +129,18 @@ function setupModal() {
         modalSubtitle.textContent = 'Please fill out the form below to support a child.';
         reasonLabel.style.display = 'block';
       }
-      modal.style.display = 'flex';
+
+      modal.classList.add('show');
       status.textContent = '';
       modalForm.reset();
     }
   });
 
   // Close modal
-  closeBtn.addEventListener('click', () => modal.style.display='none');
-  modal.addEventListener('click', e => {
-    if(e.target === modal) modal.style.display='none';
-  });
+  closeBtn.addEventListener('click', ()=> modal.classList.remove('show'));
+  modal.addEventListener('click', e=> { if(e.target === modal) modal.classList.remove('show'); });
 
-  // Modal form submit
+  // Modal form submission
   modalForm.addEventListener('submit', async e=>{
     e.preventDefault();
     status.textContent = 'Submitting...';
@@ -155,7 +155,7 @@ function setupModal() {
       if(res.ok){
         status.textContent = 'Thank you! Submission received.';
         modalForm.reset();
-        setTimeout(()=>modal.style.display='none', 1500);
+        setTimeout(()=> modal.classList.remove('show'), 1500);
       } else {
         status.textContent = 'Submission failed: '+(json?.errors?.[0]?.message||'Unknown error');
       }
