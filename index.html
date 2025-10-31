@@ -15,8 +15,8 @@
       <nav class="nav">
         <a href="#about" class="nav-link">About</a>
         <a href="#kids" class="nav-link">Kids in Need</a>
-        <a href="#" class="nav-link donate-nav open-contact">Donate</a>
-        <a href="#" class="nav-link contact-nav open-contact">Contact</a>
+        <button class="nav-link donate-nav open-contact">Donate</button>
+        <button class="nav-link contact-nav open-contact">Contact</button>
       </nav>
     </div>
   </header>
@@ -26,7 +26,7 @@
       <div class="hero-overlay">
         <h1>Bringing Holiday Joy to Those in Need</h1>
         <p class="lead">An ongoing tradition of love, support, giving, and community</p>
-        <a href="#" class="btn donate-btn donate-nav open-contact">Donate Now</a>
+        <button class="btn donate-btn donate-nav open-contact">Donate Now</button>
       </div>
     </section>
 
@@ -37,9 +37,7 @@
       <div class="about-content">
         <div class="about-box">
           <h3 class="sub-header">Background</h3>
-          <p>
-            Since 2010 our founder, Laurel McLanahan, has worked diligently every holiday season to bring gifts of clothing, toys, money, and more to people in need. What started off as a friendly, kind-hearted gesture quickly grew into a small organization of friends and family. Each year, Laurel has gathered her small crew to help those in need get through the holiday season. Our goal is to provide a relief to those in need during stressful times so that they can focus on current hardships. As of 2025, over three dozen families have been supported through their holiday season with gifts of clothing, food, money, and more!
-          </p>
+          <p>Since 2010 our founder, Laurel McLanahan, has worked diligently every holiday season to bring gifts of clothing, toys, money, and more to people in need. What started off as a friendly, kind-hearted gesture quickly grew into a small organization of friends and family. Each year, Laurel has gathered her small crew to help those in need get through the holiday season. Our goal is to provide a relief to those in need during stressful times so that they can focus on current hardships. As of 2025, over three dozen families have been supported through their holiday season with gifts of clothing, food, money, and more!</p>
           <div class="about-image">
             <img src="assets/images/momdad.png" alt="Laurel">
             <p class="caption">Laurel McLanahan and her top supporter: her husband, Jim.</p>
@@ -48,9 +46,7 @@
 
         <div class="about-box">
           <h3 class="sub-header">About Carl</h3>
-          <p>
-            Known throughout his community for his kind heart and loving generosity, Carl Swanson II was a large part of Laurel’s annual operations, especially in later years. Prior to his passing in 2025, Carl spent years working side-by-side with Laurel as they spent countless hours gathering donations, hearing peoples’ stories, and helping out everywhere they could. Operating as a nameless collection of helpful people, it was in Carl’s passing that the organization finally had a name.... because even though his physical form has left us, any holiday filled with love, generosity, giving, and caring will always feel like Christmas At Carl’s.
-          </p>
+          <p>Known throughout his community for his kind heart and loving generosity, Carl Swanson II was a large part of Laurel’s annual operations, especially in later years. Prior to his passing in 2025, Carl spent years working side-by-side with Laurel as they spent countless hours gathering donations, hearing peoples’ stories, and helping out everywhere they could. Operating as a nameless collection of helpful people, it was in Carl’s passing that the organization finally had a name.... because even though his physical form has left us, any holiday filled with love, generosity, giving, and caring will always feel like Christmas At Carl’s.</p>
           <div class="about-image">
             <img src="assets/images/carl.png" alt="Carl">
             <p class="caption">Carl Swanson II; Forever Remembered</p>
@@ -61,9 +57,7 @@
 
     <section id="kids">
       <div class="section-header">Kids In Need</div>
-      <div class="kids-grid collapsed container" id="kidsGrid">
-        <!-- Cards populated via JS -->
-      </div>
+      <div class="kids-grid collapsed container" id="kidsGrid"></div>
       <div class="see-all-container">
         <button id="toggleKids" class="see-all-btn">Show All</button>
       </div>
@@ -102,7 +96,7 @@
               <label for="comments">Comments</label>
               <textarea id="comments" name="comments" placeholder="Your message..." rows="4"></textarea>
               <button type="submit" class="btn primary">Submit</button>
-              <p id="contactStatus"></p>
+              <p id="bottomContactStatus"></p>
             </form>
           </div>
         </div>
@@ -116,14 +110,14 @@
       <nav class="nav">
         <a href="#about" class="nav-link">About</a>
         <a href="#kids" class="nav-link">Kids in Need</a>
-        <a href="#" class="nav-link donate-nav open-contact">Donate</a>
-        <a href="#" class="nav-link contact-nav open-contact">Contact</a>
+        <button class="nav-link donate-nav open-contact">Donate</button>
+        <button class="nav-link contact-nav open-contact">Contact</button>
       </nav>
     </div>
   </footer>
 
   <!-- Contact Modal -->
-  <div id="contactModal" class="contact-modal" style="display:none;">
+  <div id="contactModal" class="contact-modal">
     <div class="contact-modal-content">
       <span id="contactClose" class="contact-close">&times;</span>
       <h2 id="modalTitle">Contact / Donate</h2>
@@ -142,4 +136,3 @@
   <script src="js/main.js"></script>
 </body>
 </html>
-
