@@ -16,10 +16,10 @@ const reasonLabel = document.getElementById('reasonLabel');
 document.addEventListener('DOMContentLoaded', () => {
   if (!kidsGrid) return;
 
-  // Show only top row initially
+  // Collapse kids grid initially
   kidsGrid.classList.add('collapsed');
 
-  // Toggle show all/less
+  // Toggle show all / show less
   if (toggleBtn) {
     toggleBtn.addEventListener('click', () => {
       kidsGrid.classList.toggle('collapsed');
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Load kids cards
+  // Load kids from Google Sheet
   loadKids();
 
   // Setup modal open/close
@@ -43,17 +43,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Bottom contact form submission
+  // Bottom contact form
   const contactForm = document.querySelector('.contact-form');
   const bottomStatus = document.getElementById('bottomContactStatus');
   if(contactForm){
-    contactForm.addEventListener('submit', async e=>{
+    contactForm.addEventListener('submit', async e => {
       e.preventDefault();
       const formData = new FormData(contactForm);
       bottomStatus.textContent = 'Submitting...';
-      try{
+      try {
         const res = await fetch(FORMSPREE_URL, {
-          method:'POST',
+          method: 'POST',
           body: formData,
           headers: {'Accept':'application/json'}
         });
@@ -62,9 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
           bottomStatus.textContent = 'Thank you! Submission received.';
           contactForm.reset();
         } else {
-          bottomStatus.textContent = 'Submission failed: '+(json?.errors?.[0]?.message||'Unknown error');
+          bottomStatus.textContent = 'Submission failed: ' + (json?.errors?.[0]?.message || 'Unknown error');
         }
-      }catch(err){
+      } catch(err) {
         console.error(err);
         bottomStatus.textContent = 'An error occurred. Please try again later.';
       }
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// --- Load kids from Google Sheet ---
+// --- Load kids ---
 async function loadKids() {
   kidsGrid.innerHTML = '<p>Loading...</p>';
   try {
@@ -111,9 +111,8 @@ function escapeHtml(s) {
     .replace(/"/g,"&quot;");
 }
 
-// --- Modal setup ---
+// --- Modal ---
 function setupModal() {
-  // Open modal for .open-contact and nav-donate buttons
   document.body.addEventListener('click', e => {
     if(e.target.matches('.open-contact, .nav-donate')){
       e.preventDefault();
@@ -136,18 +135,16 @@ function setupModal() {
     }
   });
 
-  // Close modal
   closeBtn.addEventListener('click', ()=> modal.classList.remove('show'));
-  modal.addEventListener('click', e=> { if(e.target === modal) modal.classList.remove('show'); });
+  modal.addEventListener('click', e => { if(e.target === modal) modal.classList.remove('show'); });
 
-  // Modal form submission
-  modalForm.addEventListener('submit', async e=>{
+  modalForm.addEventListener('submit', async e => {
     e.preventDefault();
     status.textContent = 'Submitting...';
     const formData = new FormData(modalForm);
-    try{
+    try {
       const res = await fetch(FORMSPREE_URL, {
-        method:'POST',
+        method: 'POST',
         body: formData,
         headers: {'Accept':'application/json'}
       });
@@ -157,9 +154,9 @@ function setupModal() {
         modalForm.reset();
         setTimeout(()=> modal.classList.remove('show'), 1500);
       } else {
-        status.textContent = 'Submission failed: '+(json?.errors?.[0]?.message||'Unknown error');
+        status.textContent = 'Submission failed: ' + (json?.errors?.[0]?.message || 'Unknown error');
       }
-    }catch(err){
+    } catch(err) {
       console.error(err);
       status.textContent = 'An error occurred. Please try again later.';
     }
