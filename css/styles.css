@@ -151,6 +151,23 @@ body {
 .about-image img { max-width: 100%; border-radius: 8px; }
 .about-image .caption { font-size: 0.9rem; color: #333; margin-top: 8px; }
 
+#kids { background: #fdf6e3; padding-bottom: 60px; }
+#kids .section-header {
+  background: #b30000;
+  padding: 20px 0;
+  text-align: center;
+}
+#kids .section-header h2 { color: #fdf6e3; font-size: 2rem; margin: 0; font-weight: 700; }
+.kids-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 40px auto 0;
+  padding: 0 20px;
+}
+
 /* Buttons */
 .btn { display: inline-block; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 700; }
 .primary { background: var(--color-primary); color: #fff; }
@@ -205,3 +222,4 @@ body {
   .kids-grid { grid-template-columns: 1fr; }
   .kid-card { flex: 0 0 90%; max-width: 320px; margin: 0 auto; }
 }
+
