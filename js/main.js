@@ -122,11 +122,13 @@ function setupModal() {
       if(kidName){
         modalTitle.textContent = `Donate for ${kidName}`;
         modalSubtitle.textContent = `Wishlist: ${wishlist || 'No wishlist provided.'}`;
-        reasonLabel.style.display = 'none';
+        reasonLabel.style.display = 'block';
+        reasonLabel.querySelector('textarea').placeholder = 'Optional message to the child';
       } else {
         modalTitle.textContent = 'Contact / Donate';
         modalSubtitle.textContent = 'Please fill out the form below to support a child.';
         reasonLabel.style.display = 'block';
+        reasonLabel.querySelector('textarea').placeholder = 'Your message...';
       }
 
       modal.classList.add('show');
@@ -162,7 +164,3 @@ function setupModal() {
     }
   });
 }
-
-
-
-
