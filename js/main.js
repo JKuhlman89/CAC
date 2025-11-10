@@ -13,15 +13,14 @@ const modalTitle = document.getElementById('modalTitle');
 const modalSubtitle = document.getElementById('modalSubtitle');
 const reasonLabel = document.getElementById('reasonLabel');
 
-const hamburgerBtn = document.getElementById('hamburgerBtn');
-const mainNav = document.getElementById('mainNav');
-
 document.addEventListener('DOMContentLoaded', () => {
+  if (!kidsGrid) return;
+
   // Collapse kids grid initially
-  if(kidsGrid) kidsGrid.classList.add('collapsed');
+  kidsGrid.classList.add('collapsed');
 
   // Toggle show all / show less
-  if(toggleBtn){
+  if (toggleBtn) {
     toggleBtn.addEventListener('click', () => {
       kidsGrid.classList.toggle('collapsed');
       toggleBtn.textContent = kidsGrid.classList.contains('collapsed') ? 'Show All' : 'Show Less';
@@ -29,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Load kids from Google Sheet
-  if(kidsGrid) loadKids();
+  loadKids();
 
   // Setup modal open/close
   setupModal();
@@ -40,9 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       const targetID = link.getAttribute('href').substring(1);
       const target = document.getElementById(targetID);
-      if(target) target.scrollIntoView({behavior:'smooth'});
-      // Collapse mobile nav after click
-      if(mainNav.classList.contains('show')) mainNav.classList.remove('show');
+      if (target) target.scrollIntoView({behavior:'smooth'});
     });
   });
 
@@ -67,17 +64,10 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           bottomStatus.textContent = 'Submission failed: ' + (json?.errors?.[0]?.message || 'Unknown error');
         }
-      } catch(err){
+      } catch(err) {
         console.error(err);
         bottomStatus.textContent = 'An error occurred. Please try again later.';
       }
-    });
-  }
-
-  // Hamburger toggle
-  if(hamburgerBtn){
-    hamburgerBtn.addEventListener('click', () => {
-      mainNav.classList.toggle('show');
     });
   }
 });
@@ -85,14 +75,14 @@ document.addEventListener('DOMContentLoaded', () => {
 // --- Load kids ---
 async function loadKids() {
   kidsGrid.innerHTML = '<p>Loading...</p>';
-  try{
+  try {
     const res = await fetch(SHEET_URL);
-    if(!res.ok) throw new Error(`Network error: ${res.status}`);
+    if (!res.ok) throw new Error(`Network error: ${res.status}`);
     const data = await res.json();
     const kids = Array.isArray(data) ? data : (data.kids || []);
     const visible = kids.filter(k => !k.status || String(k.status).toLowerCase() === 'active');
     kidsGrid.innerHTML = '';
-    if(!visible.length){
+    if (!visible.length) {
       kidsGrid.innerHTML = '<p>No entries are live right now.</p>';
       return;
     }
@@ -106,14 +96,14 @@ async function loadKids() {
       </div>`;
       kidsGrid.appendChild(card);
     });
-  } catch(err){
+  } catch(err) {
     console.error(err);
     kidsGrid.innerHTML = '<p>Could not load the kids list.</p>';
   }
 }
 
 // --- Escape HTML ---
-function escapeHtml(s){
+function escapeHtml(s) {
   return String(s===undefined||s===null?'':s)
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
@@ -122,7 +112,7 @@ function escapeHtml(s){
 }
 
 // --- Modal ---
-function setupModal(){
+function setupModal() {
   document.body.addEventListener('click', e => {
     if(e.target.matches('.open-contact, .nav-donate')){
       e.preventDefault();
@@ -154,7 +144,7 @@ function setupModal(){
     e.preventDefault();
     status.textContent = 'Submitting...';
     const formData = new FormData(modalForm);
-    try{
+    try {
       const res = await fetch(FORMSPREE_URL, {
         method: 'POST',
         body: formData,
@@ -168,7 +158,7 @@ function setupModal(){
       } else {
         status.textContent = 'Submission failed: ' + (json?.errors?.[0]?.message || 'Unknown error');
       }
-    } catch(err){
+    } catch(err) {
       console.error(err);
       status.textContent = 'An error occurred. Please try again later.';
     }
