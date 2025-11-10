@@ -127,18 +127,34 @@ body {
   .btn.donate-btn { display: block; margin: 18px auto 0; }
 }
 
-/* Shared Section Header - centralised so all sections match */
+/* Shared Section Header - full width red bars */
 .section-header {
-  background: #b30000; /* keeps the red bar */
+  background: var(--color-primary);
   padding: 20px 0;
   text-align: center;
+
+  /* Full-width fix */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
 }
 .section-header h2 {
   color: #fdf6e3; /* cream */
   font-size: 2rem;
   margin: 0;
   font-weight: 700;
-  font-family: var(--font-display); /* explicit display font so it matches across pages */
+  font-family: var(--font-display);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .section-header h2 {
+    font-size: 1.6rem;
+  }
+}
+@media (max-width: 480px) {
+  .section-header h2 {
+    font-size: 1.4rem;
+  }
 }
 
 /* About */
@@ -182,7 +198,6 @@ body {
   background: #fdf6e3;
   padding: 40px 20px 60px;
 }
-
 .events-container {
   max-width: 1200px;
   margin: 40px auto 0;
@@ -191,12 +206,10 @@ body {
   gap: 40px;
   justify-content: center;
 }
-
 .event-box {
   flex: 1 1 400px;
   text-align: center;
 }
-
 .event-img {
   width: 100%;
   max-width: 420px;
@@ -204,7 +217,6 @@ body {
   display: block;
   margin: 0 auto 18px;
 }
-
 .event-follow {
   margin-top: 8px;
   font-weight: 600;
@@ -242,10 +254,6 @@ body {
   background: #fdf6e3;
   padding: 40px 20px 60px;
 }
-
-#get-involved .section-header h2 { /* no need to duplicate; but left for safety */ }
-
-/* Content layout for Get Involved */
 .get-involved-content { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 30px; }
 .top-row, .bottom-row { display: flex; gap: 40px; flex-wrap: wrap; }
 .top-row .info-box, .bottom-left, .contact-form-wrapper { flex: 1 1 48%; }
