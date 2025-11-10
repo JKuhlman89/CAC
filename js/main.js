@@ -13,6 +13,9 @@ const modalTitle = document.getElementById('modalTitle');
 const modalSubtitle = document.getElementById('modalSubtitle');
 const reasonLabel = document.getElementById('reasonLabel');
 
+const hamburger = document.querySelector('.hamburger');
+const nav = document.querySelector('.nav');
+
 document.addEventListener('DOMContentLoaded', () => {
   if (!kidsGrid) return;
 
@@ -40,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const targetID = link.getAttribute('href').substring(1);
       const target = document.getElementById(targetID);
       if (target) target.scrollIntoView({behavior:'smooth'});
+      if(nav.classList.contains('show')) nav.classList.remove('show'); // close menu on click
     });
   });
 
@@ -68,6 +72,13 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error(err);
         bottomStatus.textContent = 'An error occurred. Please try again later.';
       }
+    });
+  }
+
+  // Hamburger toggle
+  if(hamburger){
+    hamburger.addEventListener('click', () => {
+      nav.classList.toggle('show');
     });
   }
 });
