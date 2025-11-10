@@ -241,7 +241,11 @@ body {
 .see-all-btn:hover { background: #a11414; }
 
 /* Get Involved */
-#get-involved { background: var(--color-bg); padding: 40px 20px 60px; }
+#get-involved { 
+  background: #fdf6e3; 
+  padding: 40px 20px 60px; 
+}
+
 #get-involved .section-header {
   background: #b30000;
   padding: 20px 0;
@@ -254,6 +258,7 @@ body {
   margin: 0;
   font-weight: 700;
 }
+
 .get-involved-content { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 30px; }
 .top-row, .bottom-row { display: flex; gap: 40px; flex-wrap: wrap; }
 .top-row .info-box, .bottom-left, .contact-form-wrapper { flex: 1 1 48%; }
@@ -287,6 +292,7 @@ body {
   .kids-grid { grid-template-columns: 1fr; }
   .kid-card { flex: 0 0 90%; max-width: 320px; margin: 0 auto; }
 }
+
 
 
 
