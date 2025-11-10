@@ -12,15 +12,17 @@
   <header class="site-header">
     <div class="container header-inner">
       <img src="assets/icons/Flat-Logo-Red.svg" alt="Christmas at Carl's logo" class="logo" />
-      <nav class="nav" id="navMenu">
+      <nav class="nav" id="mainNav">
         <a href="#about" class="nav-link">About</a>
         <a href="#kids" class="nav-link">Kids in Need</a>
         <a href="#" class="nav-link open-contact nav-donate">Donate</a>
         <a href="#" class="nav-link open-contact">Contact</a>
       </nav>
-      <div class="hamburger" id="hamburger">
-        <span></span><span></span><span></span>
-      </div>
+      <button class="hamburger" id="hamburgerBtn">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
     </div>
   </header>
 
@@ -34,9 +36,7 @@
     </section>
 
     <section id="about">
-      <div class="section-header">
-        <h2>About Us</h2>
-      </div>      
+      <div class="section-header"><h2>About Us</h2></div>
       <div class="about-content">
         <div class="about-box">
           <h3 class="sub-header">Background</h3>
@@ -63,54 +63,34 @@
     </section>
 
     <section id="kids">
-      <div class="section-header">
-        <h2>Kids In Need</h2>
-      </div>
-      <div class="kids-grid collapsed container" id="kidsGrid">
-        <!-- Cards populated via JS -->
-      </div>
+      <div class="section-header"><h2>Kids In Need</h2></div>
+      <div class="kids-grid collapsed container" id="kidsGrid"></div>
       <div class="see-all-container">
         <button id="toggleKids" class="see-all-btn">Show All</button>
       </div>
     </section>
 
     <section id="events">
-      <div class="section-header">
-        <h2>Events</h2>
-      </div>
-
+      <div class="section-header"><h2>Events</h2></div>
       <div class="events-container container">
         <div class="event-box">
           <img src="assets/images/ChristmasJuly.jpg" alt="Christmas in July" class="event-img">
           <h3 class="sub-header">Christmas in July</h3>
-          <p>
-            Every summer, we celebrate the spirit of giving early! Join us for our Christmas in July community gathering where
-            we collect donations, share stories, and continue to spread joy all year long.
-          </p>
-          <p class="event-follow">
-            Stay up to date by following our Facebook page for announcements.
-          </p>
+          <p>Every summer, we celebrate the spirit of giving early! Join us for our Christmas in July community gathering where we collect donations, share stories, and continue to spread joy all year long.</p>
+          <p class="event-follow">Stay up to date by following our Facebook page for announcements.</p>
         </div>
 
         <div class="event-box">
           <img src="assets/images/Christmas.jpg" alt="Christmas at Carl's December Fundraiser" class="event-img">
           <h3 class="sub-header">Christmas At Carl's December Fundraiser</h3>
-          <p>
-            Our big annual holiday fundraiser! This event is dedicated to gathering gifts, clothing, food, and donations to help
-            families in need during the holiday season.
-          </p>
-          <p class="event-follow">
-            Make sure to follow our Facebook page for details on how to participate or contribute.
-          </p>
+          <p>Our big annual holiday fundraiser! This event is dedicated to gathering gifts, clothing, food, and donations to help families in need during the holiday season.</p>
+          <p class="event-follow">Make sure to follow our Facebook page for details on how to participate or contribute.</p>
         </div>
       </div>
     </section>
 
     <section id="get-involved">
-      <div class="section-header">
-        <h2>Get Involved</h2>
-      </div>
-
+      <div class="section-header"><h2>Get Involved</h2></div>
       <div class="get-involved-content container">
         <div class="top-row">
           <div class="info-box">
@@ -148,6 +128,7 @@
         </div>
       </div>
     </section>
+
   </main>
 
   <footer class="site-footer">
