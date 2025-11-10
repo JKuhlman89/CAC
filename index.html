@@ -12,15 +12,17 @@
   <header class="site-header">
     <div class="container header-inner">
       <img src="assets/icons/Flat-Logo-Red.svg" alt="Christmas at Carl's logo" class="logo" />
-      <button class="hamburger" aria-label="Toggle navigation">
-        <span></span><span></span><span></span>
-      </button>
-      <nav class="nav">
+      <nav class="nav" id="mainNav">
         <a href="#about" class="nav-link">About</a>
         <a href="#kids" class="nav-link">Kids in Need</a>
         <a href="#" class="nav-link open-contact nav-donate">Donate</a>
         <a href="#" class="nav-link open-contact">Contact</a>
       </nav>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </header>
 
@@ -33,21 +35,27 @@
       </div>
     </section>
 
-    <!-- About Section -->
     <section id="about">
-      <div class="section-header"><h2>About Us</h2></div>
+      <div class="section-header">
+        <h2>About Us</h2>
+      </div>      
       <div class="about-content">
         <div class="about-box">
           <h3 class="sub-header">Background</h3>
-          <p>Since 2010 our founder, Laurel McLanahan, has worked diligently ...</p>
+          <p>
+            Since 2010 our founder, Laurel McLanahan, has worked diligently every holiday season to bring gifts of clothing, toys, money, and more to people in need. What started off as a friendly, kind-hearted gesture quickly grew into a small organization of friends and family. Each year, Laurel has gathered her small crew to help those in need get through the holiday season. Our goal is to provide a relief to those in need during stressful times so that they can focus on current hardships. As of 2025, over three dozen families have been supported through their holiday season with gifts of clothing, food, money, and more!
+          </p>
           <div class="about-image">
             <img src="assets/images/momdad.png" alt="Laurel">
             <p class="caption">Laurel McLanahan and her top supporter: her husband, Jim.</p>
           </div>
         </div>
+
         <div class="about-box">
           <h3 class="sub-header">About Carl</h3>
-          <p>Known throughout his community for his kind heart ...</p>
+          <p>
+            Known throughout his community for his kind heart and loving generosity, Carl Swanson II was a large part of Laurel’s annual operations, especially in later years. Prior to his passing in 2025, Carl spent years working side-by-side with Laurel as they spent countless hours gathering donations, hearing peoples’ stories, and helping out everywhere they could. Operating as a nameless collection of helpful people, it was in Carl’s passing that the organization finally had a name.... because even though his physical form has left us, any holiday filled with love, generosity, giving, and caring will always feel like Christmas At Carl’s.
+          </p>
           <div class="about-image">
             <img src="assets/images/carl.png" alt="Carl">
             <p class="caption">Carl Swanson II; Forever Remembered</p>
@@ -56,55 +64,75 @@
       </div>
     </section>
 
-    <!-- Kids Section -->
     <section id="kids">
-      <div class="section-header"><h2>Kids In Need</h2></div>
+      <div class="section-header">
+        <h2>Kids In Need</h2>
+      </div>
       <div class="kids-grid collapsed container" id="kidsGrid">
-        <!-- JS populated -->
+        <!-- Cards populated via JS -->
       </div>
       <div class="see-all-container">
         <button id="toggleKids" class="see-all-btn">Show All</button>
       </div>
     </section>
 
-    <!-- Events Section -->
     <section id="events">
-      <div class="section-header"><h2>Events</h2></div>
+      <div class="section-header">
+        <h2>Events</h2>
+      </div>
+
       <div class="events-container container">
         <div class="event-box">
           <img src="assets/images/ChristmasJuly.jpg" alt="Christmas in July" class="event-img">
           <h3 class="sub-header">Christmas in July</h3>
-          <p>Every summer, we celebrate the spirit of giving early! ...</p>
-          <p class="event-follow">Stay up to date by following our Facebook page for announcements.</p>
+          <p>
+            Every summer, we celebrate the spirit of giving early! Join us for our Christmas in July community gathering where
+            we collect donations, share stories, and continue to spread joy all year long.
+          </p>
+          <p class="event-follow">
+            Stay up to date by following our Facebook page for announcements.
+          </p>
         </div>
+
         <div class="event-box">
           <img src="assets/images/Christmas.jpg" alt="Christmas at Carl's December Fundraiser" class="event-img">
           <h3 class="sub-header">Christmas At Carl's December Fundraiser</h3>
-          <p>Our big annual holiday fundraiser! This event is dedicated to ...</p>
-          <p class="event-follow">Make sure to follow our Facebook page for details on how to participate or contribute.</p>
+          <p>
+            Our big annual holiday fundraiser! This event is dedicated to gathering gifts, clothing, food, and donations to help
+            families in need during the holiday season.
+          </p>
+          <p class="event-follow">
+            Make sure to follow our Facebook page for details on how to participate or contribute.
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- Get Involved Section -->
     <section id="get-involved">
-      <div class="section-header"><h2>Get Involved</h2></div>
+      <div class="section-header">
+        <h2>Get Involved</h2>
+      </div>
+
       <div class="get-involved-content container">
         <div class="top-row">
           <div class="info-box">
             <h3 class="sub-header">What We Need</h3>
-            <p>It’s simple; we need you! ...</p>
+            <p>It’s simple; we need you! Kind-hearted, generous people who understand what it’s like to be down on your luck. The reality is that we are all one unfortunate moment away from our lives changing forever, and it can happen to anyone. Our team has a list of the children and families that we are working with this year, along with the things they need and want. Don’t let that restrict you! Anything we have in excess will be happily given to others who have reached out to us, and our reach will grow alongside our donations and capabilities!</p>
           </div>
           <div class="info-box">
             <h3 class="sub-header">How To Help</h3>
-            <p>Whether you’re able to make a physical donation, volunteer your time, or both ...</p>
+            <p>Whether you’re able to make a physical donation, volunteer your time, or both, fill out the contact form below! We will get a hold of you as soon as possible.</p>
           </div>
         </div>
+
         <div class="bottom-row">
           <div class="info-box bottom-left">
             <h3 class="sub-header">Contact Us!</h3>
-            <p>We do our best to respond to each and every inquiry. ...</p>
+            <p>We do our best to respond to each and every inquiry. If you want to donate your time, have donations to pass along, or need some help yourself this holiday season don’t be afraid to reach out! While we can’t help everybody, our goal is to help those in need get back on their feet and able to move forward.</p>
+            <br>
+            <p>Reach out today; a member of our staff will get in touch with you as soon as possible!</p>
           </div>
+
           <div class="contact-form-wrapper">
             <form class="contact-form" id="bottomContactForm">
               <label for="name">Name</label>
@@ -122,14 +150,12 @@
         </div>
       </div>
     </section>
+
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
       <img src="assets/icons/Flat-Logo-Red.svg" alt="Christmas at Carl's logo" class="logo" />
-      <button class="hamburger" aria-label="Toggle navigation">
-        <span></span><span></span><span></span>
-      </button>
       <nav class="nav">
         <a href="#about" class="nav-link">About</a>
         <a href="#kids" class="nav-link">Kids in Need</a>
@@ -157,5 +183,6 @@
   </div>
 
   <script src="js/main.js"></script>
+  <script src="js/nav-hamburger.js"></script>
 </body>
 </html>
