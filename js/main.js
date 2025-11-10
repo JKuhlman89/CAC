@@ -16,10 +16,10 @@ const reasonLabel = document.getElementById('reasonLabel');
 document.addEventListener('DOMContentLoaded', () => {
   if (!kidsGrid) return;
 
-  // Collapse kids grid initially
+  // --- Collapse kids grid initially ---
   kidsGrid.classList.add('collapsed');
 
-  // Toggle show all / show less
+  // --- Toggle show all / show less ---
   if (toggleBtn) {
     toggleBtn.addEventListener('click', () => {
       kidsGrid.classList.toggle('collapsed');
@@ -27,30 +27,34 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Load kids from Google Sheet
+  // --- Load kids from Google Sheet ---
   loadKids();
 
-  // Setup modal open/close
+  // --- Setup contact modal ---
   setupModal();
 
-  // Setup hamburger menus
-  setupHamburgers();
-
-  // Smooth scroll for nav links (exclude modal buttons)
+  // --- Smooth scroll for nav links ---
   document.querySelectorAll('.nav-link:not(.nav-donate)').forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
       const targetID = link.getAttribute('href').substring(1);
       const target = document.getElementById(targetID);
       if (target) target.scrollIntoView({behavior:'smooth'});
-
-      // Close mobile nav after clicking
-      const nav = link.closest('.nav');
-      closeMobileNav(nav);
+      // Close mobile nav if open
+      document.querySelectorAll('.nav').forEach(nav => nav.classList.remove('show'));
     });
   });
 
-  // Bottom contact form
+  // --- Hamburger toggle ---
+  document.querySelectorAll('.hamburger').forEach(hamburger => {
+    hamburger.addEventListener('click', () => {
+      const nav = hamburger.parentElement.querySelector('.nav');
+      nav.classList.toggle('show');
+      hamburger.classList.toggle('active');
+    });
+  });
+
+  // --- Bottom contact form ---
   const contactForm = document.querySelector('.contact-form');
   const bottomStatus = document.getElementById('bottomContactStatus');
   if(contactForm){
@@ -141,6 +145,8 @@ function setupModal() {
       modal.classList.add('show');
       status.textContent = '';
       modalForm.reset();
+      // Close mobile nav if open
+      document.querySelectorAll('.nav').forEach(nav => nav.classList.remove('show'));
     }
   });
 
@@ -170,26 +176,4 @@ function setupModal() {
       status.textContent = 'An error occurred. Please try again later.';
     }
   });
-}
-
-// --- Hamburger Menu ---
-function setupHamburgers() {
-  document.querySelectorAll('.site-header, .site-footer').forEach(container => {
-    const nav = container.querySelector('.nav');
-    if(!nav) return;
-
-    const hamburger = container.querySelector('.hamburger');
-    if(!hamburger) return;
-
-    hamburger.addEventListener('click', () => {
-      nav.classList.toggle('show');
-    });
-  });
-}
-
-// Close nav on mobile after clicking a link
-function closeMobileNav(nav) {
-  if(nav && nav.classList.contains('show')) {
-    nav.classList.remove('show');
-  }
 }
