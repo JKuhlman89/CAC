@@ -127,14 +127,25 @@ body {
   .btn.donate-btn { display: block; margin: 18px auto 0; }
 }
 
-/* About */
-#about { background: #fdf6e3; padding-bottom: 60px; }
-#about .section-header {
-  background: #b30000;
+/* Shared Section Header - centralised so all sections match */
+.section-header {
+  background: #b30000; /* keeps the red bar */
   padding: 20px 0;
   text-align: center;
 }
-#about .section-header h2 { color: #fdf6e3; font-size: 2rem; margin: 0; font-weight: 700; }
+.section-header h2 {
+  color: #fdf6e3; /* cream */
+  font-size: 2rem;
+  margin: 0;
+  font-weight: 700;
+  font-family: var(--font-display); /* explicit display font so it matches across pages */
+}
+
+/* About */
+#about {
+  background: #fdf6e3;
+  padding-bottom: 60px;
+}
 .about-content {
   display: flex;
   flex-wrap: wrap;
@@ -151,13 +162,11 @@ body {
 .about-image img { max-width: 100%; border-radius: 8px; }
 .about-image .caption { font-size: 0.9rem; color: #333; margin-top: 8px; }
 
-#kids { background: #fdf6e3; padding-bottom: 60px; }
-#kids .section-header {
-  background: #b30000;
-  padding: 20px 0;
-  text-align: center;
+/* Kids */
+#kids {
+  background: #fdf6e3;
+  padding-bottom: 60px;
 }
-#kids .section-header h2 { color: #fdf6e3; font-size: 2rem; margin: 0; font-weight: 700; }
 .kids-content {
   display: flex;
   flex-wrap: wrap;
@@ -167,23 +176,11 @@ body {
   margin: 40px auto 0;
   padding: 0 20px;
 }
-/*Events */
+
+/* Events */
 #events {
   background: #fdf6e3;
   padding: 40px 20px 60px;
-}
-
-#events .section-header {
-  background: #b30000;
-  padding: 20px 0;
-  text-align: center;
-}
-
-#events .section-header h2 {
-  color: #fdf6e3;
-  font-size: 2rem;
-  margin: 0;
-  font-weight: 700;
 }
 
 .events-container {
@@ -241,24 +238,14 @@ body {
 .see-all-btn:hover { background: #a11414; }
 
 /* Get Involved */
-#get-involved { 
-  background: #fdf6e3; 
-  padding: 40px 20px 60px; 
+#get-involved {
+  background: #fdf6e3;
+  padding: 40px 20px 60px;
 }
 
-#get-involved .section-header {
-  background: #b30000;
-  padding: 20px 0;
-  text-align: center;
-}
+#get-involved .section-header h2 { /* no need to duplicate; but left for safety */ }
 
-#get-involved .section-header h2 {
-  color: #fdf6e3;
-  font-size: 2rem;
-  margin: 0;
-  font-weight: 700;
-}
-
+/* Content layout for Get Involved */
 .get-involved-content { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 30px; }
 .top-row, .bottom-row { display: flex; gap: 40px; flex-wrap: wrap; }
 .top-row .info-box, .bottom-left, .contact-form-wrapper { flex: 1 1 48%; }
@@ -292,7 +279,3 @@ body {
   .kids-grid { grid-template-columns: 1fr; }
   .kid-card { flex: 0 0 90%; max-width: 320px; margin: 0 auto; }
 }
-
-
-
-
