@@ -1,6 +1,6 @@
 'use strict';
 
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzukjCUcoICp2ZfGAjEeQ7u3PxsZa2JUSsJXbxcnuIBZ48usjP6GdP_VCRTrUb3g--TaA/exec';
+const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQRN3im8fD-i1tqLz5qDKTvUVY_Qy-tukD1b1lu805eJxvl3Dl6L5Q0IDLzQMC6lA/pubhtml';
 const FORMSPREE_URL = 'https://formspree.io/f/movklbol';
 
 const kidsGrid = document.getElementById('kidsGrid');
@@ -162,3 +162,4 @@ function setupModal() {
     }
   });
 }
+
