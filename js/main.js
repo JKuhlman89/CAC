@@ -43,7 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const targetID = link.getAttribute('href').substring(1);
       const target = document.getElementById(targetID);
       if (target) target.scrollIntoView({behavior:'smooth'});
-      if(nav.classList.contains('show')) nav.classList.remove('show'); // close menu on click
+      
+      // Close nav on mobile after clicking link
+      if (nav.classList.contains('active')) nav.classList.remove('active');
     });
   });
 
@@ -76,9 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Hamburger toggle
-  if(hamburger){
+  if(hamburger && nav){
     hamburger.addEventListener('click', () => {
-      nav.classList.toggle('show');
+      nav.classList.toggle('active');
     });
   }
 });
