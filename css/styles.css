@@ -242,7 +242,18 @@ body {
 
 /* Get Involved */
 #get-involved { background: var(--color-bg); padding: 40px 20px 60px; }
-#get-involved .section-header { background: var(--color-primary); color: #fff; font-size: 1.5rem; font-weight: 700; text-align: center; padding: 12px 0; margin-bottom: 30px; }
+#get-involved .section-header {
+  background: #b30000;
+  padding: 20px 0;
+  text-align: center;
+}
+
+#get-involved .section-header h2 {
+  color: #fdf6e3;
+  font-size: 2rem;
+  margin: 0;
+  font-weight: 700;
+}
 .get-involved-content { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 30px; }
 .top-row, .bottom-row { display: flex; gap: 40px; flex-wrap: wrap; }
 .top-row .info-box, .bottom-left, .contact-form-wrapper { flex: 1 1 48%; }
@@ -276,5 +287,6 @@ body {
   .kids-grid { grid-template-columns: 1fr; }
   .kid-card { flex: 0 0 90%; max-width: 320px; margin: 0 auto; }
 }
+
 
 
