@@ -127,16 +127,16 @@ body {
   .btn.donate-btn { display: block; margin: 18px auto 0; }
 }
 
-/* Full-width Section Headers */
+/* Section Headers – FULL WIDTH FIX */
 .section-header {
   background: var(--color-primary);
   text-align: center;
   padding: 20px 0;
+  width: 100vw;
   position: relative;
-  left: 0;
-  right: 0;
-  width: 100%;
-  margin: 0;
+  left: 50%;
+  margin-left: -50vw;
+  box-sizing: border-box;
 }
 .section-header h2 {
   color: #fdf6e3;
@@ -187,6 +187,7 @@ body {
   background: #fdf6e3;
   padding: 40px 20px 60px;
 }
+
 .events-container {
   max-width: 1200px;
   margin: 40px auto 0;
@@ -195,10 +196,12 @@ body {
   gap: 40px;
   justify-content: center;
 }
+
 .event-box {
   flex: 1 1 400px;
   text-align: center;
 }
+
 .event-img {
   width: 100%;
   max-width: 420px;
@@ -206,10 +209,19 @@ body {
   display: block;
   margin: 0 auto 18px;
 }
+
 .event-follow {
   margin-top: 8px;
   font-weight: 600;
   color: #b30000;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .events-container {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 /* Buttons */
@@ -235,6 +247,8 @@ body {
   background: #fdf6e3;
   padding: 40px 20px 60px;
 }
+
+/* Content layout for Get Involved */
 .get-involved-content { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 30px; }
 .top-row, .bottom-row { display: flex; gap: 40px; flex-wrap: wrap; }
 .top-row .info-box, .bottom-left, .contact-form-wrapper { flex: 1 1 48%; }
@@ -267,5 +281,4 @@ body {
   .top-row .info-box, .bottom-left, .contact-form-wrapper { flex: 1 1 100%; }
   .kids-grid { grid-template-columns: 1fr; }
   .kid-card { flex: 0 0 90%; max-width: 320px; margin: 0 auto; }
-  .events-container { flex-direction: column; align-items: center; }
 }
