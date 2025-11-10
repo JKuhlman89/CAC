@@ -33,6 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Setup modal open/close
   setupModal();
 
+  // Setup hamburger menus
+  setupHamburgers();
+
   // Smooth scroll for nav links (exclude modal buttons)
   document.querySelectorAll('.nav-link:not(.nav-donate)').forEach(link => {
     link.addEventListener('click', e => {
@@ -40,7 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const targetID = link.getAttribute('href').substring(1);
       const target = document.getElementById(targetID);
       if (target) target.scrollIntoView({behavior:'smooth'});
-      closeMobileNav(link.closest('.nav')); // Close nav on link click
+
+      // Close mobile nav after clicking
+      const nav = link.closest('.nav');
+      closeMobileNav(nav);
     });
   });
 
@@ -71,9 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-
-  // Setup hamburger menus
-  setupHamburgers();
 });
 
 // --- Load kids ---
@@ -175,10 +178,8 @@ function setupHamburgers() {
     const nav = container.querySelector('.nav');
     if(!nav) return;
 
-    const hamburger = document.createElement('div');
-    hamburger.className = 'hamburger';
-    hamburger.innerHTML = `<span></span><span></span><span></span>`;
-    container.insertBefore(hamburger, nav);
+    const hamburger = container.querySelector('.hamburger');
+    if(!hamburger) return;
 
     hamburger.addEventListener('click', () => {
       nav.classList.toggle('show');
